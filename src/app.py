@@ -34,7 +34,7 @@ class App:
                 self.star_map.gen_new_map()
 
         if pyxel.btnp(pyxel.MOUSE_LEFT_BUTTON):
-            self.star_map.select_hover_system(move_camera=True)
+            self.star_map.select_hovered_system(move_camera=True)
 
         if pyxel.btnp(pyxel.MOUSE_RIGHT_BUTTON):
             self.mouse_pos_when_press = pyxel.mouse_x, pyxel.mouse_y

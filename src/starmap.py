@@ -66,7 +66,7 @@ class StarMap:
 
     def gen_new_map(self):
         self.clear()
-        num_of_stars = 1000  # int(self.size[0] * self.size[1] * 0.01)
+        num_of_stars = 500  # int(self.size[0] * self.size[1] * 0.01)
         # print(num_of_stars)
         self._add_star(0, 0, StarSystem("SOL", 7))
         unique_names = set()
@@ -120,7 +120,7 @@ class StarMap:
 
         return sys_position
 
-    def select_hover_system(self, *, move_camera=False):
+    def select_hovered_system(self, *, move_camera=False):
         if move_camera and self.pos_selected_system and self.is_selected_a_hover():
             s_pos = self.pos_selected_system
             self._cam.move_to(s_pos[0],
@@ -131,10 +131,9 @@ class StarMap:
 
     def _draw_circ_and_name(self, sys_pos, circ_col, name_col):
         dx, dy = self._cam.d_pos
-        x, y = sys_pos
-        star_system_name = self.stars_systems.get((x, y)).name
-        x -= dx
-        y -= dy
+        star_system_name = self.stars_systems.get(sys_pos).name
+        x = sys_pos[0] - dx
+        y = sys_pos[1] - dy
         name_length = len(star_system_name)
         center_x = name_length * 4 // 2
         pyxel.circb(x, y, 3, circ_col)
