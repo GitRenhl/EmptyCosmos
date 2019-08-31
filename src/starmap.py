@@ -19,8 +19,8 @@ class StarMap:
         self.d_scale = 1  # TODO add scale
         self.size = (500, 500)
         self.stars_systems = {}
-        self.hovered_system_pos = ()
-        self.selected_system_pos = ()
+        self.pos_hovered_system = ()
+        self.pos_selected_system = ()
 
         self.gen_new_map()
 
@@ -116,35 +116,30 @@ class StarMap:
         return sys_position
 
     def select_hover_system(self, *, move_camera=False):
-        if move_camera and self.selected_system_pos and self.is_hovered_a_selected():
-            s_pos = self.selected_system_pos
+        if move_camera and self.pos_selected_system and self.is_selected_a_hover():
+            s_pos = self.pos_selected_system
             self._cam.move_to(s_pos[0],
                               s_pos[1],
                               smooth=True)
         else:
-            self.selected_system_pos = self.hovered_system_pos[::]
-
-        if self.hovered_system_pos:
-            return True
-        else:
-            return False
+            self.pos_selected_system = self.pos_hovered_system[::]
 
     def _draw_circ_and_name(self, sys_pos, circ_col, name_col):
         dx, dy = self._cam.d_pos
         x, y = sys_pos
-        system = self.stars_systems.get((x, y)).name
+        star_system_name = self.stars_systems.get((x, y)).name
         x -= dx
         y -= dy
-        name_len = len(system)
-        center_x = name_len * 4 // 2
+        name_length = len(star_system_name)
+        center_x = name_length * 4 // 2
         pyxel.circb(x, y, 3, circ_col)
-        pyxel.text(x - center_x, y - 10, system, name_col)
+        pyxel.text(x - center_x, y - 10, star_system_name, name_col)
 
-    def is_hovered_a_selected(self):
-        return self.hovered_system_pos == self.selected_system_pos
+    def is_selected_a_hover(self):
+        return self.pos_hovered_system == self.pos_selected_system
 
     def update(self):
-        self.hovered_system_pos = self._pos_system_hov_by_mouse()
+        self.pos_hovered_system = self._pos_system_hov_by_mouse()
 
     def draw(self):
         dx, dy = self._cam.d_pos
@@ -153,8 +148,8 @@ class StarMap:
             y = pos[1] - dy
             system.draw(x, y)
 
-        if self.hovered_system_pos and not self.is_hovered_a_selected():
-            self._draw_circ_and_name(self.hovered_system_pos, 8, 6)
+        if self.pos_hovered_system and not self.is_selected_a_hover():
+            self._draw_circ_and_name(self.pos_hovered_system, 8, 6)
 
-        if self.selected_system_pos:
-            self._draw_circ_and_name(self.selected_system_pos, 11, 7)
+        if self.pos_selected_system:
+            self._draw_circ_and_name(self.pos_selected_system, 11, 7)
