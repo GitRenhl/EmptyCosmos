@@ -24,6 +24,11 @@ class StarMap:
 
         self.gen_new_map()
 
+    def clear(self):
+        self.stars_systems.clear()
+        self.pos_hovered_system = ()
+        self.pos_selected_system = ()
+
     def _add_star(self, x, y, system, *, force=False):
         pos = x, y
         if not force and self.stars_systems.get(pos):
@@ -60,7 +65,7 @@ class StarMap:
         return full_name
 
     def gen_new_map(self):
-        self.stars_systems.clear()
+        self.clear()
         num_of_stars = 1000  # int(self.size[0] * self.size[1] * 0.01)
         # print(num_of_stars)
         self._add_star(0, 0, StarSystem("SOL", 7))
