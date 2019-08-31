@@ -77,16 +77,16 @@ class StarMap:
 
         for _ in range(num_of_stars):
             i = 0
-            valid = True
+            valid = False
 
             star_system = StarSystem(unique_names.pop(), random.randint(1, 15))
-            while valid and i < 10:
+            while not valid and i < 10:
                 i += 1
                 r_pos = (random.randint(0, self.size[0]),
                          random.randint(0, self.size[1]))
-                valid = not self._add_star(r_pos[0], r_pos[1], star_system)
-            if i > 1:
-                print("When added system:", i, valid)
+                valid = self._add_star(r_pos[0], r_pos[1], star_system)
+            if i > 1 and not valid:
+                print("Cant add star system. Attempts:", i)
 
     def _pos_system_hov_by_mouse(self):
         sys_position = ()
