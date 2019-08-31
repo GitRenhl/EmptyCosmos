@@ -34,6 +34,7 @@ class App:
                 self.star_map.gen_new_map()
 
         if pyxel.btnp(pyxel.MOUSE_LEFT_BUTTON):
+            # TODO If you click on already selected system then move camera to it
             valid = self.star_map.select_hover_system()
             if valid:
                 s_pos = self.star_map.selected_system_pos

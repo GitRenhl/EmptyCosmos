@@ -1,6 +1,7 @@
 import pyxel
 import random
 import string
+from src.mymath import Vec2
 
 
 class StarSystem:
@@ -88,19 +89,31 @@ class StarMap:
                 print("When added system:", i, valid)
 
     def _pos_system_hov_by_mouse(self):
-        mx = int(self._cam.d_pos.x) + pyxel.mouse_x
-        my = int(self._cam.d_pos.y) + pyxel.mouse_y
-        margin = 3
-        margin_range = range(-margin, margin+1)
-        # systems = []
+        sys_position = ()
+        cmx = int(self._cam.d_pos.x) + pyxel.mouse_x
+        cmy = int(self._cam.d_pos.y) + pyxel.mouse_y
+        MARGIN = 3
+        margin_range = range(-MARGIN, MARGIN+1)
+        systems = []
         for y in margin_range:
             for x in margin_range:
-                mpos = mx - x, my - y
+                mpos = cmx - x, cmy - y
                 system = self.stars_systems.get(mpos)
                 if system:
-                    # systems.append(system)
-                    return mpos
-        return ()
+                    systems.append(mpos)
+        if len(systems) == 1:
+            sys_position = systems[0]
+
+        elif len(systems) > 1:
+            best_distance = float("inf")
+            mpos = Vec2(cmx, cmy)
+            for pos in systems:
+                distance = mpos.distance_to(pos)
+                if distance < best_distance:
+                    best_distance = distance
+                    sys_position = pos
+
+        return sys_position
 
     def select_hover_system(self):
         self.selected_system_pos = self.hovered_system_pos[::]
