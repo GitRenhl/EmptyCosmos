@@ -115,8 +115,15 @@ class StarMap:
 
         return sys_position
 
-    def select_hover_system(self):
-        self.selected_system_pos = self.hovered_system_pos[::]
+    def select_hover_system(self, *, move_camera=False):
+        if move_camera and self.selected_system_pos and self.is_hovered_a_selected():
+            s_pos = self.selected_system_pos
+            self._cam.move_to(s_pos[0],
+                              s_pos[1],
+                              smooth=True)
+        else:
+            self.selected_system_pos = self.hovered_system_pos[::]
+
         if self.hovered_system_pos:
             return True
         else:
