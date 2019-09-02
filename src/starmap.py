@@ -21,6 +21,7 @@ class StarMap:
         self.stars_systems = {}
         self.pos_hovered_system = ()
         self.pos_selected_system = ()
+        self.selected_system = None
 
         self.gen_new_map()
 
@@ -128,6 +129,8 @@ class StarMap:
                               smooth=True)
         else:
             self.pos_selected_system = self.pos_hovered_system[::]
+            self.selected_system = self.stars_systems.get(
+                self.pos_selected_system)
 
     def _draw_circ_and_name(self, sys_pos, circ_col, name_col):
         dx, dy = self._cam.d_pos

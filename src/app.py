@@ -6,7 +6,7 @@ from src.mymath import Vec2
 
 class App:
     def __init__(self):
-        pyxel.init(200, 200, fps=60)
+        pyxel.init(256, 256, fps=60)
         # pyxel.mouse(True)
 
         self.camera = Camera(100, 100)
@@ -16,6 +16,10 @@ class App:
         self.mouse_pos_when_press = None
 
         pyxel.run(self.update, self.draw)
+
+    @staticmethod
+    def get_text_pix_width(text):
+        return len(text) * pyxel.FONT_WIDTH
 
     def _draw_mouse(self):
         x, y = pyxel.mouse_x+1, pyxel.mouse_y + 1
@@ -57,7 +61,15 @@ class App:
     def draw(self):
         pyxel.cls(0)
         self.star_map.draw()
-        pyxel.text(2, 2, str(self.camera.position), 7)
-        pyxel.text(2, 10, str(self.camera.d_pos), 7)
+
+#         star_system = self.star_map.selected_system
+#         if star_system:
+#             text = f"""Name:
+#    {star_system.name}
+# Type: {star_system.color}
+# """
+#             pyxel.rect(1, 1, 70, pyxel.height * 0.7, 1)
+#             pyxel.text(3, 3, text, 7)
+#             # pyxel.text(3, 17, star_system.name, 7)
 
         self._draw_mouse()
