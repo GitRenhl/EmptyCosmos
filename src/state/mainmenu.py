@@ -1,5 +1,5 @@
 import pyxel
-from .base import BaseState
+from . import BaseState
 
 
 class MainMenuState(BaseState):

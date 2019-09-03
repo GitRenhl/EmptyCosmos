@@ -1,5 +1,5 @@
 import pyxel
-from .base import BaseState
+from . import BaseState
 from src.camera import Camera
 from src.starmap import StarMap
 from src.mymath import Vec2
