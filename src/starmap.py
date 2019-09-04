@@ -135,8 +135,8 @@ class StarMap:
     def _draw_circ_and_name(self, sys_pos, circ_col, name_col):
         dx, dy = self._cam.d_pos
         star_system_name = self.stars_systems.get(sys_pos).name
-        x = sys_pos[0] - dx
-        y = sys_pos[1] - dy
+        x = sys_pos[0] - int(dx)
+        y = sys_pos[1] - int(dy)
         name_length = len(star_system_name)
         center_x = name_length * 4 // 2
         pyxel.circb(x, y, 3, circ_col)
@@ -150,6 +150,8 @@ class StarMap:
 
     def draw(self):
         dx, dy = self._cam.d_pos
+        dx = int(dx)
+        dy = int(dy)
         for pos, system in self.stars_systems.items():
             x = pos[0] - dx
             y = pos[1] - dy

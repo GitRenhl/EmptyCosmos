@@ -5,6 +5,8 @@ from src import state as State
 class App:
     def __init__(self):
         pyxel.init(256, 256, fps=60)
+        self.PYXEL_WIDTH_CENTER = pyxel.width // 2
+        self.PYXEL_HEIGHT_CENTER = pyxel.height // 2
 
         states = {
             'mainmenu': State.MainMenuState,

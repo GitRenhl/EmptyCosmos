@@ -31,7 +31,7 @@ class GameplayState(BaseState):
         if pyxel.btnr(pyxel.MOUSE_RIGHT_BUTTON):
             self.mouse_pos_when_press = None
 
-        if self.mouse_pos_when_press:
+        if pyxel.btn(pyxel.MOUSE_RIGHT_BUTTON):
             tmp_pos = Vec2(self.last_map_pos[::])
             old_mx, old_my = self.mouse_pos_when_press
             tmp_pos.x -= pyxel.mouse_x - old_mx
